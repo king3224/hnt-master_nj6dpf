@@ -12,7 +12,7 @@ import com.shtoone.shtw.adapter.AboutActivityViewPagerAdapter;
 /**
  * Created by leguang on 2016/6/11.
  */
-
+  
 public class AboutActivity extends BaseActivity {
     private static final String TAG = AboutActivity.class.getSimpleName();
     private Toolbar mToolbar;
