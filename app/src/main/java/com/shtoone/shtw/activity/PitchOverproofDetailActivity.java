@@ -562,7 +562,7 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
 
 
         //设置处置部分是否显示
-        if (mUserInfoData.getQuanxian().isLqchaobiaoReal()) {
+        if (mUserInfoData.getQuanxian().isCbchuli()) {
             if ("1".equals(chuli)) {
                 bt_handle_submit.setEnabled(false);
                 bt_handle_reset.setEnabled(false);
@@ -582,6 +582,7 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
             } else {
                 et_handle_person.getEditText().setText(data.getData().getChuzhiren());
             }
+
             if (TextUtils.isEmpty(data.getData().getChuzhishijian())) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
                 et_handle_time.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
@@ -785,6 +786,9 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
                             finish();
                         }
                     });
+        }else {
+            progressDialog.dismiss();
+            TastyToast.makeText(getApplicationContext(), "请上传图片!", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
         }
     }
     /**

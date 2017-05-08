@@ -701,7 +701,7 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
 
 
         //设置处置部分是否显示
-        if (mUserInfoData.getQuanxian().isHntchaobiaoReal()&& TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
+        if (mUserInfoData.getQuanxian().isCbchuli()&& TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
             bt_handle_submit.setEnabled(true);
             bt_handle_reset.setEnabled(true);
         }else{
@@ -740,7 +740,7 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
 
 
         //设置审批部分是否显示
-        if (mUserInfoData.getQuanxian().isHntchaobiaoSp() && TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
+        if (mUserInfoData.getQuanxian().isCbshenpi() && TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
             bt_examine_submit.setEnabled(true);
             bt_examine_reset.setEnabled(true);
         }else{

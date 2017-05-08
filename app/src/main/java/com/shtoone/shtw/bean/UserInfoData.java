@@ -125,49 +125,70 @@ public class UserInfoData {
     }
 
     public static class QuanxianBean {
+//        /**
+//         * hntchaobiaoReal : true
+//         * hntchaobiaoSp : true
+//         * lqchaobiaoReal : false
+//         * syschaobiaoReal : false
+//         */
         /**
-         * hntchaobiaoReal : true
-         * hntchaobiaoSp : true
-         * lqchaobiaoReal : false
-         * syschaobiaoReal : false
-         */
+         * cbchuli true
+         * cbshenpi true*/
+        private boolean cbchuli;
+        private boolean cbshenpi;
 
-        private boolean hntchaobiaoReal;
-        private boolean hntchaobiaoSp;
-        private boolean lqchaobiaoReal;
-        private boolean syschaobiaoReal;
-
-        public boolean isHntchaobiaoReal() {
-            return hntchaobiaoReal;
+        public boolean isCbchuli() {
+            return cbchuli;
         }
 
-        public void setHntchaobiaoReal(boolean hntchaobiaoReal) {
-            this.hntchaobiaoReal = hntchaobiaoReal;
+        public boolean isCbshenpi() {
+            return cbshenpi;
         }
 
-        public boolean isHntchaobiaoSp() {
-            return hntchaobiaoSp;
+        public void setCbchuli(boolean cbchuli) {
+            this.cbchuli = cbchuli;
         }
 
-        public void setHntchaobiaoSp(boolean hntchaobiaoSp) {
-            this.hntchaobiaoSp = hntchaobiaoSp;
+        public void setCbshenpi(boolean cbshenpi) {
+            this.cbshenpi = cbshenpi;
         }
 
-        public boolean isLqchaobiaoReal() {
-            return lqchaobiaoReal;
-        }
-
-        public void setLqchaobiaoReal(boolean lqchaobiaoReal) {
-            this.lqchaobiaoReal = lqchaobiaoReal;
-        }
-
-        public boolean isSyschaobiaoReal() {
-            return syschaobiaoReal;
-        }
-
-        public void setSyschaobiaoReal(boolean syschaobiaoReal) {
-            this.syschaobiaoReal = syschaobiaoReal;
-        }
+        //        private boolean hntchaobiaoReal;
+//        private boolean hntchaobiaoSp;
+//        private boolean lqchaobiaoReal;
+//        private boolean syschaobiaoReal;
+//
+//        public boolean isHntchaobiaoReal() {
+//            return hntchaobiaoReal;
+//        }
+//
+//        public void setHntchaobiaoReal(boolean hntchaobiaoReal) {
+//            this.hntchaobiaoReal = hntchaobiaoReal;
+//        }
+//
+//        public boolean isHntchaobiaoSp() {
+//            return hntchaobiaoSp;
+//        }
+//
+//        public void setHntchaobiaoSp(boolean hntchaobiaoSp) {
+//            this.hntchaobiaoSp = hntchaobiaoSp;
+//        }
+//
+//        public boolean isLqchaobiaoReal() {
+//            return lqchaobiaoReal;
+//        }
+//
+//        public void setLqchaobiaoReal(boolean lqchaobiaoReal) {
+//            this.lqchaobiaoReal = lqchaobiaoReal;
+//        }
+//
+//        public boolean isSyschaobiaoReal() {
+//            return syschaobiaoReal;
+//        }
+//
+//        public void setSyschaobiaoReal(boolean syschaobiaoReal) {
+//            this.syschaobiaoReal = syschaobiaoReal;
+//        }
     }
 
     @Override
