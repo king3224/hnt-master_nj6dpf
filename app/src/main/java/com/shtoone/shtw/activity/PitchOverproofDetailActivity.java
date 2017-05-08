@@ -445,6 +445,7 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
             if (jsonObject.optBoolean("success")) {
                 data = mGson.fromJson(response, PitchOverproofDetailActivityData.class);
                 setViewData();
+                setData2View();
                 try {
                     KLog.e(response);
                     getXqDataFromString(response);
@@ -542,6 +543,17 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
         tv_lqwd.setText(data.getData().getLqwd() + "℃");//
         tv_slwd.setText(data.getData().getGlwd() + "℃");//
         tv_clwd.setText(data.getData().getClwd() + "℃");//
+    }
+
+    private void setData2View() {
+        String imageURL = URL.BaseURL + data.getData().getFilepath();
+        Glide.with(getApplicationContext()).load(imageURL).crossFade().into(iv_photo_select);
+        et_handle_person.getEditText().setText(data.getData().getChuzhiren());
+        et_handle_time.getEditText().setText(data.getData().getChuzhishijian());
+        et_handle_reason.getEditText().setText(data.getData().getChaobiaoyuanyin());
+        et_handle_way.getEditText().setText(data.getData().getChulifangshi());
+        et_handle_result.getEditText().setText(data.getData().getChulijieguo());
+
     }
 
     //还是不能这样搞，可能会内存泄漏，重复创建Adapyer对象。后面解决

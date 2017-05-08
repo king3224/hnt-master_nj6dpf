@@ -152,7 +152,7 @@ public class OverproofFragmentViewPagerFragment extends BaseFragment {
             }
         });
         initPageStateLayout(mPageStateLayout);
-        initPtrFrameLayout(mPtrFrameLayout);
+//        initPtrFrameLayout(mPtrFrameLayout);
     }
 
     @Override
@@ -397,6 +397,7 @@ public class OverproofFragmentViewPagerFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         BaseApplication.bus.post(new EventData(ConstantsUtils.OVERPROOFFABSHOW));
+        initPtrFrameLayout(mPtrFrameLayout);
     }
 
     @Override

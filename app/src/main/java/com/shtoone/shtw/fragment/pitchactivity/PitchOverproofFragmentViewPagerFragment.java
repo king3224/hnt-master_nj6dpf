@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.shtoone.shtw.BaseApplication;
 import com.shtoone.shtw.R;
-import com.shtoone.shtw.activity.OverproofDetailActivity;
 import com.shtoone.shtw.activity.PitchOverproofDetailActivity;
 import com.shtoone.shtw.adapter.OnItemClickListener;
 import com.shtoone.shtw.adapter.PitchOverproofFragmentViewPagerFragmentRecyclerViewAdapter;
@@ -94,6 +93,7 @@ public class PitchOverproofFragmentViewPagerFragment extends BaseFragment {
         return view;
     }
 
+
     private void initView(View view) {
         mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.ptrframelayout);
         mPageStateLayout = (PageStateLayout) view.findViewById(R.id.pagestatelayout);
@@ -157,7 +157,7 @@ public class PitchOverproofFragmentViewPagerFragment extends BaseFragment {
             }
         });
         initPageStateLayout(mPageStateLayout);
-        initPtrFrameLayout(mPtrFrameLayout);
+//        initPtrFrameLayout(mPtrFrameLayout);
     }
 
     @Override
@@ -394,6 +394,7 @@ public class PitchOverproofFragmentViewPagerFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         BaseApplication.bus.post(new EventData(ConstantsUtils.OVERPROOFFABSHOW));
+        initPtrFrameLayout(mPtrFrameLayout);
     }
 
     @Override

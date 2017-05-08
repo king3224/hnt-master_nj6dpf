@@ -698,7 +698,7 @@ public class URL {
      */
     public static String getPitchOverProofDetailData(int bianhao, String shebeibianhao) {
         String url = LIQING_CHAOBIAOCHUZHI_DETAIL_URL.replace("%1", String.valueOf(bianhao)).replace("%2", shebeibianhao);
-        KLog.e(TAG, "沥青生产数据详情查询 :" + url);
+        KLog.e(TAG, "沥青超标详情查询 :" + url);
         if (TextUtils.isEmpty(url)) {
             return null;
         }
