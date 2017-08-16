@@ -267,7 +267,7 @@ public class DeviceLocationActivity extends BaseActivity {
             getAddress(latLonPoint);
             regeoMarker = aMap.addMarker(new MarkerOptions().anchor(1.0f, 1.0f)
                     .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    .defaultMarker(BitmapDescriptorFactory.HUE_RED))
                     .title(dataBeen.get(0).getBanhezhanminchen())
                     .snippet(dataBeen.get(0).getDongjinbeiwei()));
             regeoMarker.showInfoWindow();
@@ -308,6 +308,7 @@ public class DeviceLocationActivity extends BaseActivity {
         }
     }
 
+    //所有定位设备信息
     private void allRequst() {
         HttpUtils.getRequest(URL.getDeviceLocations(mParametersData.userGroupID), new HttpUtils.HttpListener() {
             @Override
@@ -346,6 +347,7 @@ public class DeviceLocationActivity extends BaseActivity {
         });
     }
 
+    //请求拌合机设备数据
     private void upRequst() {
         HttpUtils.getRequest(URL.getDeviceLocation(mParametersData.userGroupID, mParametersData.equipmentID), new HttpUtils.HttpListener() {
             @Override

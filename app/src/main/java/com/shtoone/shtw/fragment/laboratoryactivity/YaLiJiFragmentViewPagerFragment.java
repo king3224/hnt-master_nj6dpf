@@ -151,7 +151,7 @@ public class YaLiJiFragmentViewPagerFragment extends BaseFragment {
         });
 
         initPageStateLayout(mPageStateLayout);
-        initPtrFrameLayout(mPtrFrameLayout);
+
     }
 
     @Override
@@ -398,6 +398,7 @@ public class YaLiJiFragmentViewPagerFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         BaseApplication.bus.post(new EventData(ConstantsUtils.YALIJIFABSHOW));
+        initPtrFrameLayout(mPtrFrameLayout);
     }
 
     @Override

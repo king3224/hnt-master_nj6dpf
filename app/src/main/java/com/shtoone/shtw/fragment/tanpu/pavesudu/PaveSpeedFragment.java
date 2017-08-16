@@ -579,7 +579,6 @@ public class PaveSpeedFragment extends BaseFragment implements View.OnTouchListe
                     e.printStackTrace();
                 }
             }
-
         }
 
         return false;

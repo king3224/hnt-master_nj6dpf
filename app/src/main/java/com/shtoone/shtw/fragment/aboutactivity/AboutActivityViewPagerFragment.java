@@ -25,6 +25,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  */
 public class AboutActivityViewPagerFragment extends BaseFragment {
     private static final String TAG = AboutActivityViewPagerFragment.class.getSimpleName();
+
     private PageStateLayout mPageStateLayout;
     private PtrFrameLayout mPtrFrameLayout;
     private int aboutWhat;
@@ -65,6 +66,7 @@ public class AboutActivityViewPagerFragment extends BaseFragment {
         mPageStateLayout = (PageStateLayout) view.findViewById(R.id.psl_view_pager_fragment_about_activity);
         mWebView = (WebView) view.findViewById(R.id.wv_view_pager_fragment_about_activity);
     }
+
 
     private void initData() {
         initPageStateLayout(mPageStateLayout);

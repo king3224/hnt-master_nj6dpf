@@ -1,8 +1,6 @@
 package com.shtoone.shtw.fragment.weatheractivity;
 
-import android.app.Notification;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,28 +13,20 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 
 import com.android.volley.VolleyError;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.google.gson.Gson;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.shtoone.shtw.BaseApplication;
 import com.shtoone.shtw.R;
-import com.shtoone.shtw.activity.WannengjiDetailActivity;
 import com.shtoone.shtw.adapter.OnItemClickListener;
 import com.shtoone.shtw.adapter.WeatherAdapter;
-import com.shtoone.shtw.adapter.YaLiJiFragmentViewPagerFragmentRecyclerViewAdapter;
-import com.shtoone.shtw.bean.ParametersData;
-import com.shtoone.shtw.bean.WannengjiFragmentViewPagerFragmentRecyclerViewItemData;
 import com.shtoone.shtw.bean.WeatherData;
 import com.shtoone.shtw.event.EventData;
-import com.shtoone.shtw.event.MyLocationListener;
 import com.shtoone.shtw.fragment.base.BaseFragment;
 import com.shtoone.shtw.ui.PageStateLayout;
 import com.shtoone.shtw.utils.ConstantsUtils;
 import com.shtoone.shtw.utils.NetworkUtils;
 import com.shtoone.shtw.utils.StringUtils;
 import com.socks.library.KLog;
-import com.squareup.otto.Subscribe;
 
 import org.json.JSONException;
 import org.json.JSONObject;

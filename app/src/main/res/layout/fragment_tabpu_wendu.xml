@@ -117,6 +117,27 @@
                                         android:text="温度(℃)"/>
 
                                 </LinearLayout>
+                                
+                                <!--<LinearLayout-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginTop="10dp"-->
+                                    <!--android:orientation="horizontal">-->
+                                    <!---->
+                                    <!--<TextView-->
+                                        <!--android:layout_width="wrap_content"-->
+                                        <!--android:layout_height="wrap_content"-->
+                                        <!--android:text="摊铺温度标准值:"/>-->
+                                    <!---->
+                                    <!--<TextView-->
+                                        <!--android:id="@+id/tv_pave_temp_normal"-->
+                                        <!--android:layout_width="wrap_content"-->
+                                        <!--android:layout_height="wrap_content"-->
+                                        <!--android:layout_marginLeft="10dp"-->
+                                        <!--android:text="155℃"/>-->
+                                    <!---->
+                                    <!---->
+                                <!--</LinearLayout>-->
 
                                 <ViewFlipper
                                     android:id="@+id/tanpuwendu_Flipper"
@@ -124,6 +145,7 @@
                                     android:layout_height="match_parent"
                                     android:autoStart="false"
                                     android:flipInterval="1000"
+                                    android:layout_marginTop="10dp"
                                     android:persistentDrawingCache="animation" >
 
                                     <android.support.v7.widget.RecyclerView

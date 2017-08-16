@@ -46,6 +46,7 @@ public class TanpuWenduFragmentRecyclerViewAdapter extends RecyclerView.Adapter<
             mItemViewHolder.tv_tanpu_time.setText(item.getTmpshijian());
             mItemViewHolder.tv_tanpu_wendu.setText(item.getTmpdata());
             mItemViewHolder.tv_shebeimingcheng.setText(item.getBanhezhanminchen());
+//            mItemViewHolder.tv_tanpu_wendu.setTextColor();
         }
     }
 

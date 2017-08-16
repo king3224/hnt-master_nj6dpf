@@ -235,6 +235,9 @@ public class LoginActivity extends BaseActivity {
                 case "2":
                     intent = new Intent(this, PitchMainActivity.class);
                     break;
+                case "3":
+                    intent = new Intent(this, LaboratoryMainActivity.class);
+                    break;
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +19,9 @@ import com.shtoone.shtw.R;
 import com.shtoone.shtw.activity.WannengjiDetailActivity;
 import com.shtoone.shtw.adapter.OnItemClickListener;
 import com.shtoone.shtw.adapter.WannengjiFragmentViewPagerFragmentRecyclerViewAdapter;
-import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.bean.ParametersData;
 import com.shtoone.shtw.bean.WannengjiFragmentViewPagerFragmentRecyclerViewItemData;
+import com.shtoone.shtw.event.EventData;
 import com.shtoone.shtw.fragment.base.BaseFragment;
 import com.shtoone.shtw.ui.PageStateLayout;
 import com.shtoone.shtw.utils.ConstantsUtils;
@@ -152,7 +151,6 @@ public class WannengjiFragmentViewPagerFragment extends BaseFragment {
             }
         });
         initPageStateLayout(mPageStateLayout);
-        initPtrFrameLayout(mPtrFrameLayout);
     }
 
     @Override
@@ -400,6 +398,7 @@ public class WannengjiFragmentViewPagerFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         BaseApplication.bus.post(new EventData(ConstantsUtils.WANNENGJIFABSHOW));
+        initPtrFrameLayout(mPtrFrameLayout);
     }
 
     @Override

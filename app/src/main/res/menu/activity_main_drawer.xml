@@ -10,10 +10,6 @@
             android:id="@+id/logout_drawer_main_activity"
             android:icon="@drawable/ic_menu_manage"
             android:title="重新登录" />
-        <item
-            android:id="@+id/weather_drawer_main_activity"
-            android:icon="@android:drawable/ic_menu_day"
-            android:title="最近天气" />
     </group>
 
     <item android:title="About">

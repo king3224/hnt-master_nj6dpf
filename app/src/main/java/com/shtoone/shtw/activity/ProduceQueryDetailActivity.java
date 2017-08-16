@@ -50,6 +50,7 @@ public class ProduceQueryDetailActivity extends BaseActivity {
     private TextView tv10;
     private TextView tv11;
     private TextView tv12;
+    private TextView tv_jiaobanshijian;
     private RecyclerView mRecyclerView;
     private ProduceQueryDetailActivityRecyclerViewAdapter mAdapter;
     private ProduceQueryFragmentListData.DataBean mDataBean;
@@ -82,6 +83,7 @@ public class ProduceQueryDetailActivity extends BaseActivity {
         tv10 = (TextView) findViewById(R.id.tv10_produce_query_detail_activity);
         tv11 = (TextView) findViewById(R.id.tv11_produce_query_detail_activity);
         tv12 = (TextView) findViewById(R.id.tv12_produce_query_detail_activity);
+        tv_jiaobanshijian = (TextView) findViewById(R.id.textview5);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_produce_query_detail_activity);
     }
 
@@ -160,11 +162,12 @@ public class ProduceQueryDetailActivity extends BaseActivity {
     //还是不能这样搞，可能会内存泄漏，重复创建Adapyer对象。后面解决
     private void setAdapter() {
         // 设置显示数据
+        tv_jiaobanshijian.setText(data.getHbfield().getJiaobanshijian()+":");
         tv0.setText(data.getHeadMsg().getGujifangshu());//数量
         tv1.setText(data.getHeadMsg().getBanhezhanminchen());//拌合站名称
         tv2.setText(data.getHeadMsg().getGongdanhao());//工单号
         tv3.setText(data.getHeadMsg().getChaozuozhe());//操作者
-        tv4.setText(data.getHeadMsg().getChuliaoshijian());//出料时间
+        tv4.setText(data.getHeadMsg().getChuliaoshijian());//出料时间1
         tv5.setText(data.getHeadMsg().getJiaobanshijian());//搅拌时长
         tv6.setText(data.getHeadMsg().getGongchengmingcheng());//工程名称
         tv7.setText(data.getHeadMsg().getSigongdidian());//地点里程

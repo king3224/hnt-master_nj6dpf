@@ -73,7 +73,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -537,8 +539,8 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
                 if (null != data) {
                     if (data.isSuccess()) {
                         mPageStateLayout.showContent();
-                        setAdapter();
                         setData2View();
+                        setAdapter();
                     } else {
                         //提示数据为空，展示空状态
                         mPageStateLayout.showEmpty();
@@ -569,17 +571,21 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
         }
     }
 
-    private void handleSubmit(final MaterialDialog progressDialog) {
+    private void handleSubmit(final MaterialDialog progressDialog)  {
         String person = null, time = null, reason = null, way = null, result = null;
 
-        person = handlePerson;
-        time = handleTime;
-        reason = handleReason;
-        way = handleWay;
-        result = handleResult;
+        try {
+            person = URLEncoder.encode(handlePerson, "UTF-8");
+            time = handleTime;
+            reason = URLEncoder.encode(handleReason, "UTF-8");
+            way = URLEncoder.encode(handleWay, "UTF-8");
+            result = URLEncoder.encode(handleResult, "UTF-8");
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
 
         final String url = URL.BHZ_CHAOBIAO_DO_URL.replace("%1", data.getHeadMsg().getId()).replace("%2", reason).replace("%3", way).replace("%4", result).replace("%5", person).replace("%6", DateUtils.ChangeTimeToLong(time));
-
+        KLog.e(TAG,"混凝土超标处置上传url=:"+url);
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -674,8 +680,13 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
     }
 
     private void setData2View() {
-        String imageURL = URL.BaseURL + data.getHeadMsg().getFilePath();
-        Glide.with(getApplicationContext()).load(imageURL).crossFade().into(iv_photo_select);
+        if (!TextUtils.isEmpty(data.getHeadMsg().getFilePath())) {
+
+            String imageURL = URL.BaseURL + data.getHeadMsg().getFilePath();
+            Glide.with(getApplicationContext()).load(imageURL).crossFade().into(iv_photo_select);
+        }else{
+            iv_photo_select.setImageResource(R.drawable.ic_camera_album);
+        }
         et_handle_person.getEditText().setText(data.getHeadMsg().getChuliren());
         et_handle_time.getEditText().setText(data.getHeadMsg().getChulishijian());
         et_handle_reason.getEditText().setText(data.getHeadMsg().getWentiyuanyin());
@@ -716,80 +727,81 @@ public class OverproofDetailActivity extends BaseActivity implements TimePickerD
         mScaleInAnimationAdapter.setFirstOnly(true);
         mRecyclerView.setAdapter(mScaleInAnimationAdapter);
 
-
         //设置处置部分是否显示
         if (mUserInfoData.getQuanxian().isCbchuli()&& TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
             bt_handle_submit.setEnabled(true);
             bt_handle_reset.setEnabled(true);
+
+            if (!TextUtils.isEmpty(data.getHeadMsg().getFilePath())) {
+
+                String imageURL = URL.BaseURL + data.getHeadMsg().getFilePath();
+                Glide.with(getApplicationContext()).load(imageURL).crossFade().into(iv_photo_select);
+            }
+
+            if (TextUtils.isEmpty(data.getHeadMsg().getChuliren())) {
+                et_handle_person.getEditText().setText(handlePerson = mUserInfoData.getUserFullName());
+            } else {
+                et_handle_person.getEditText().setText(data.getHeadMsg().getChuliren());
+            }
+            if (TextUtils.isEmpty(data.getHeadMsg().getChulishijian())) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+                et_handle_time.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
+            } else {
+                et_handle_time.getEditText().setText(data.getHeadMsg().getChulishijian());
+            }
+
+            if (!TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
+                et_handle_reason.getEditText().setText(data.getHeadMsg().getWentiyuanyin());
+            }
+
+            if (!TextUtils.isEmpty(data.getHeadMsg().getChulifangshi())) {
+                et_handle_way.getEditText().setText(data.getHeadMsg().getChulifangshi());
+            }
+
+            if (!TextUtils.isEmpty(data.getHeadMsg().getChulijieguo())) {
+                et_handle_result.getEditText().setText(data.getHeadMsg().getChulijieguo());
+            }
         }else{
             bt_handle_submit.setEnabled(false);
             bt_handle_reset.setEnabled(false);
         }
-        if (!TextUtils.isEmpty(data.getHeadMsg().getFilePath())) {
-
-            String imageURL = URL.BaseURL + data.getHeadMsg().getFilePath();
-             Glide.with(getApplicationContext()).load(imageURL).crossFade().into(iv_photo_select);
-        }
-
-        if (TextUtils.isEmpty(data.getHeadMsg().getChuliren())) {
-            et_handle_person.getEditText().setText(handlePerson = mUserInfoData.getUserFullName());
-        } else {
-            et_handle_person.getEditText().setText(data.getHeadMsg().getChuliren());
-        }
-        if (TextUtils.isEmpty(data.getHeadMsg().getChulishijian())) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-            et_handle_time.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
-        } else {
-            et_handle_time.getEditText().setText(data.getHeadMsg().getChulishijian());
-        }
-
-        if (!TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
-            et_handle_reason.getEditText().setText(data.getHeadMsg().getWentiyuanyin());
-        }
-
-        if (!TextUtils.isEmpty(data.getHeadMsg().getChulifangshi())) {
-            et_handle_way.getEditText().setText(data.getHeadMsg().getChulifangshi());
-        }
-
-        if (!TextUtils.isEmpty(data.getHeadMsg().getChulijieguo())) {
-            et_handle_result.getEditText().setText(data.getHeadMsg().getChulijieguo());
-        }
 
 
         //设置审批部分是否显示
-        if (mUserInfoData.getQuanxian().isCbshenpi() && TextUtils.isEmpty(data.getHeadMsg().getWentiyuanyin())) {
+        if (mUserInfoData.getQuanxian().isCbshenpi()&& TextUtils.isEmpty(data.getHeadMsg().getJianlishenpi()) ) {
             bt_examine_submit.setEnabled(true);
             bt_examine_reset.setEnabled(true);
+
+            if (TextUtils.isEmpty(data.getHeadMsg().getShenpiren())) {
+                et_examine_person.getEditText().setText(examinePerson = mUserInfoData.getUserFullName());
+            } else {
+                et_examine_person.getEditText().setText(data.getHeadMsg().getShenpiren());
+            }
+
+            if (!TextUtils.isEmpty(data.getHeadMsg().getJianliresult())) {
+                et_examine_result.getEditText().setText(data.getHeadMsg().getJianliresult());
+            }
+
+            if (!TextUtils.isEmpty(data.getHeadMsg().getJianlishenpi())) {
+                et_examine_approve.getEditText().setText(data.getHeadMsg().getJianlishenpi());
+            }
+
+            if (TextUtils.isEmpty(data.getHeadMsg().getConfirmdate())) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+                et_confirm_date.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
+            } else {
+                et_confirm_date.getEditText().setText(data.getHeadMsg().getConfirmdate());
+            }
+
+            if (TextUtils.isEmpty(data.getHeadMsg().getShenpidate())) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+                et_approve_date.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
+            } else {
+                et_approve_date.getEditText().setText(data.getHeadMsg().getShenpidate());
+            }
         }else{
             bt_examine_submit.setEnabled(false);
             bt_examine_reset.setEnabled(false);
-        }
-        if (TextUtils.isEmpty(data.getHeadMsg().getShenpiren())) {
-            et_examine_person.getEditText().setText(examinePerson = mUserInfoData.getUserFullName());
-        } else {
-            et_examine_person.getEditText().setText(data.getHeadMsg().getShenpiren());
-        }
-
-        if (!TextUtils.isEmpty(data.getHeadMsg().getJianliresult())) {
-            et_examine_result.getEditText().setText(data.getHeadMsg().getJianliresult());
-        }
-
-        if (!TextUtils.isEmpty(data.getHeadMsg().getJianlishenpi())) {
-            et_examine_approve.getEditText().setText(data.getHeadMsg().getJianlishenpi());
-        }
-
-        if (TextUtils.isEmpty(data.getHeadMsg().getConfirmdate())) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-            et_confirm_date.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
-        } else {
-            et_confirm_date.getEditText().setText(data.getHeadMsg().getConfirmdate());
-        }
-
-        if (TextUtils.isEmpty(data.getHeadMsg().getShenpidate())) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
-            et_approve_date.getEditText().setText(sdf.format(Calendar.getInstance().getTime()));
-        } else {
-            et_approve_date.getEditText().setText(data.getHeadMsg().getShenpidate());
         }
 
     }

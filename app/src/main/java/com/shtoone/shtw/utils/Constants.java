@@ -28,8 +28,6 @@ public class Constants {
     //public static final String BASE_URL = "http://112.124.50.253:8081/hnlymss/app/";
    public static final String BASE_URL = "http://192.168.11.119:8082/qhttqms/";
 
-
-
     //登录地址
     public static final String LOGIN_URL = BASE_URL + "app.do?AppLogin&userName=%1&userPwd=%2&OSType=2";
 

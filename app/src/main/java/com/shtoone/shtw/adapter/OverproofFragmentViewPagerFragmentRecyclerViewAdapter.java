@@ -82,12 +82,12 @@ public class OverproofFragmentViewPagerFragmentRecyclerViewAdapter extends Recyc
                 mItemViewHolder.stv_handle.setText("未处置").setSlantedBackgroundColor(Color.YELLOW);
             } else {
                 mItemViewHolder.stv_handle.setText("已处置").setSlantedBackgroundColor(Color.GREEN);
-                mItemViewHolder.stv_examine.setVisibility(View.VISIBLE);
-                if ("0".equals(item.getShenhe())) {
-                    mItemViewHolder.stv_examine.setText("未审批").setSlantedBackgroundColor(Color.YELLOW);
-                } else if ("1".equals(item.getShenhe())) {
-                    mItemViewHolder.stv_examine.setText("已审批").setSlantedBackgroundColor(Color.GREEN);
-                }
+            }
+            mItemViewHolder.stv_examine.setVisibility(View.VISIBLE);
+            if (("0".equals(item.getShenhe()))||("-1".equals(item.getShenhe()))) {
+                mItemViewHolder.stv_examine.setText("未审批").setSlantedBackgroundColor(Color.YELLOW);
+            } else if ("1".equals(item.getShenhe())) {
+                mItemViewHolder.stv_examine.setText("已审批").setSlantedBackgroundColor(Color.GREEN);
             }
 
             if (mOnItemClickListener != null) {

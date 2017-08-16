@@ -24,6 +24,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.android.volley.VolleyError;
@@ -90,6 +91,7 @@ public class TanpuWenduFragment extends BaseFragment implements View.OnTouchList
     private static final int FLING_MIN_VELOCITY = 200;
     private ViewFlipper mFlipper;
     private GestureDetector mGestureDetector;
+    private TextView tv_pave_temp_normal;
 
 
     public static TanpuWenduFragment newInstance() {
@@ -118,6 +120,7 @@ public class TanpuWenduFragment extends BaseFragment implements View.OnTouchList
         mNestedScrollView = (NestedScrollView) view.findViewById(R.id.nsv_produce_query_detail_fragment);
         mFlipper= (ViewFlipper) view.findViewById(R.id.tanpuwendu_Flipper);
         lineChart= (LineChart) view.findViewById(R.id.lineChart_production_detail);
+//        tv_pave_temp_normal = (TextView) view.findViewById(R.id.tv_pave_temp_normal);
         mGestureDetector = new GestureDetector(_mActivity, this);
         mFlipper.setLongClickable(true);
         mFlipper.setOnTouchListener(this);
@@ -577,7 +580,6 @@ public class TanpuWenduFragment extends BaseFragment implements View.OnTouchList
                     e.printStackTrace();
                 }
             }
-
         }
 
         return false;

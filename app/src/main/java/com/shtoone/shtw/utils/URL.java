@@ -40,13 +40,13 @@ public class URL {
 //    public static final String BaseURL = "http://192.168.11.109:8080/njpfqms/";
 
     //测试地址
-//    public static final String BaseURL = "http://116.62.30.27:8082/njpfsix/";
-
+//    public static final String BaseURL = "http://192.168.11.108:8081/njpfqms/";
 
     //平台地址
     public static final String BaseURL = "http://116.62.30.27:8082/njpfsix/";
 
-//    public static final String BaseURL = "http://115.29.173.91:8083/gzbjqms/";
+    //测试地址
+//    public static final String BaseURL = "http://192.168.11.105:8081/njpfqms/";
 
     /**
      * 登录地址

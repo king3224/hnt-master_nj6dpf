@@ -1,9 +1,7 @@
 package com.shtoone.shtw.activity;
 
 import android.animation.Animator;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -24,26 +21,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.google.gson.Gson;
 import com.shtoone.shtw.BaseApplication;
 import com.shtoone.shtw.R;
 import com.shtoone.shtw.activity.base.BaseActivity;
 import com.shtoone.shtw.bean.WeatherData;
 import com.shtoone.shtw.fragment.mainactivity.ConcreteFragment;
+import com.shtoone.shtw.fragment.mainactivity.LaboratoryFragment;
 import com.shtoone.shtw.fragment.mainactivity.PitchFragment;
 import com.shtoone.shtw.fragment.tanpu.PaveSiteFragment;
 import com.shtoone.shtw.utils.ConstantsUtils;
 import com.shtoone.shtw.utils.SharedPreferencesUtils;
-import com.shtoone.shtw.utils.StringUtils;
 import com.socks.library.KLog;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -58,7 +48,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private NavigationView mNavigationView;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle toggle;
-    private SupportFragment[] mFragments = new SupportFragment[3];
+    private SupportFragment[] mFragments = new SupportFragment[4];
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
     private AHBottomNavigation bottomNavigation;
     private int bottomNavigationPreposition = 0;
@@ -80,57 +70,58 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             if (savedInstanceState == null) {
             mFragments[0] = ConcreteFragment.newInstance();
             mFragments[1] = PitchFragment.newInstance();
-            mFragments[2] = PaveSiteFragment.newInstance();
-            loadMultipleRootFragment(R.id.fl_container_main_activity, 0, mFragments[0], mFragments[1],mFragments[2]);
+            mFragments[2] = LaboratoryFragment.newInstance();
+            mFragments[3] = PaveSiteFragment.newInstance();
+            loadMultipleRootFragment(R.id.fl_container_main_activity, 0, mFragments[0], mFragments[1],mFragments[2],mFragments[3]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
             // 这里我们需要拿到mFragments的引用,也可以通过getSupportFragmentManager.getFragments()自行进行判断查找(效率更高些),用下面的方法查找更方便些
             mFragments[0] = findFragment(ConcreteFragment.class);
             mFragments[1] = findFragment(PitchFragment.class);
-            mFragments[2] = findFragment(PaveSiteFragment.class);
+            mFragments[2] = LaboratoryFragment.newInstance();
+            mFragments[3] = findFragment(PaveSiteFragment.class);
 
         }
 
         initView();
         initData();
-        getWeather();
-    }
-
-    public void getWeather() {
-
-
-        mQueue = Volley.newRequestQueue(this);
-        SharedPreferences sharedPreferences = this.getSharedPreferences("chengshi", Context.MODE_PRIVATE);
-        final String cityName = sharedPreferences.getString("name", "");
-        Log.e("TAG", cityName);
-        String url = "http://apicloud.mob.com/v1/weather/query?key=10fe7d0582836&city=" + StringUtils.getUTF8FromStr(cityName);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("TAG", response.toString());
-
-                        Gson gson = new Gson();
-                        weatherData = gson.fromJson(response.toString(), WeatherData.class);
-                        if (weatherData != null && weatherData.getRetCode().equals("200")) {
-                            city.setText(cityName);
-                            tempreture.setText(weatherData.getResult().get(0).getTemperature());
-                            weather.setText(weatherData.getResult().get(0).getWeather());
-                        } else {
-                            Toast.makeText(getApplicationContext(), "请求天气数据失败", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", error.getMessage(), error);
-                //Toast.makeText(getApplicationContext(), "2" + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        mQueue.add(jsonObjectRequest);
+//        getWeather();
 
     }
+
+//    public void getWeather() {
+//        mQueue = Volley.newRequestQueue(this);
+//        SharedPreferences sharedPreferences = this.getSharedPreferences("chengshi", Context.MODE_PRIVATE);
+//        final String cityName = sharedPreferences.getString("name", "");
+//        Log.e("TAG", cityName);
+//        String url = "http://apicloud.mob.com/v1/weather/query?key=10fe7d0582836&city=" + StringUtils.getUTF8FromStr(cityName);
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        Log.d("TAG", response.toString());
+//
+//                        Gson gson = new Gson();
+//                        weatherData = gson.fromJson(response.toString(), WeatherData.class);
+//                        if (weatherData != null && weatherData.getRetCode().equals("200")) {
+//                            city.setText(cityName);
+//                            tempreture.setText(weatherData.getResult().get(0).getTemperature());
+//                            weather.setText(weatherData.getResult().get(0).getWeather());
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "请求天气数据失败", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e("TAG", error.getMessage(), error);
+//                //Toast.makeText(getApplicationContext(), "2" + error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        mQueue.add(jsonObjectRequest);
+//
+//    }
 
     private void initView() {
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -178,10 +169,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.concrete, R.drawable.ic_bhz, R.color.white);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.asphalt, R.drawable.ic_android_black_24dp, R.color.white);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.pavesite, R.drawable.road, R.color.white);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.laboratory, R.drawable.ic_lab, R.color.white);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.pavesite, R.drawable.road, R.color.white);
         bottomNavigationItems.add(item1);
         bottomNavigationItems.add(item2);
         bottomNavigationItems.add(item3);
+        bottomNavigationItems.add(item4);
         bottomNavigation.addItems(bottomNavigationItems);
         bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
         bottomNavigation.setBehaviorTranslationEnabled(true);
@@ -241,10 +234,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     JumpToMessageActivity();
                 } else if (id == R.id.logout_drawer_main_activity) {
                     JumpToLoginActivity();
-                } else if (id == R.id.weather_drawer_main_activity) {
-                    KLog.e(TAG, "JumpToWeatherActivity()");
-                    JumpToWeatherActivity();
-
                 } else if (id == R.id.about_drawer_main_activity) {
                     JumpToAboutActivity();
                 } else if (id == R.id.version_drawer_main_activity) {
@@ -270,11 +259,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         startActivity(intent);
     }
 
-    private void JumpToWeatherActivity() {
-        KLog.e(TAG, "JumpToWeatherActivity()0");
-        Intent intent = new Intent(this, WeatherActivity.class);
-        startActivity(intent);
-    }
+//    private void JumpToWeatherActivity() {
+//        KLog.e(TAG, "JumpToWeatherActivity()0");
+//        Intent intent = new Intent(this, WeatherActivity.class);
+//        startActivity(intent);
+//    }
 
     private void JumpToAboutActivity() {
         Intent intent = new Intent(this, AboutActivity.class);

@@ -37,7 +37,7 @@ public class PitchOverproofDetailActivityRecyclerViewAdapter extends RecyclerVie
     public int getItemCount() {
 
         if (lists !=null && lists.size() > 0) {
-            KLog.e(TAG,"======getItemCount======");
+//            KLog.e(TAG,"======getItemCount======");
             return lists.size();
         }
         return 0;
@@ -64,7 +64,7 @@ public class PitchOverproofDetailActivityRecyclerViewAdapter extends RecyclerVie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        KLog.e(TAG,"======onCreateViewHolder======");
+//        KLog.e(TAG,"======onCreateViewHolder======");
         return new ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_recyclerview_produce_query_detail_activity, parent, false));
     }
 

@@ -62,7 +62,7 @@ public class PitchFragmentRecyclerViewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (itemData != null && itemData.isSuccess() && itemData.getData().size() > 0) {
             itemViewHolder itemViewHolder = (PitchFragmentRecyclerViewAdapter.itemViewHolder) holder;
-            item = itemData.getData().get(0);
+            item = itemData.getData().get(position);
 //            holder.cv.setCardBackgroundColor(position % 2 == 0 ? mResources.getColor(R.color.material_green_100) : mResources.getColor(R.color.material_green_100));
             if (null != item && item.size() > 0) {
                 itemViewHolder.usergroup_name.setText(item.get(0).getDeptName());

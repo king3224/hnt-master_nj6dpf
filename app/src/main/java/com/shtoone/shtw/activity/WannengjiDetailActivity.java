@@ -104,13 +104,6 @@ public class WannengjiDetailActivity extends BaseActivity {
     private void initDate() {
         mGson = new Gson();
         mUserInfoData = BaseApplication.mUserInfoData;
-        if ("不合格".equals(mDataBean.getPDJG()) || "无效".equals(mDataBean.getPDJG())) {
-            cv_handle.setVisibility(View.VISIBLE);
-            if (mUserInfoData.getQuanxian().isCbchuli()) {
-                bt_submit.setEnabled(true);
-                bt_reset.setEnabled(true);
-            }
-        }
 
         setToolbarTitle();
         initToolbarBackNavigation(mToolbar);
@@ -320,6 +313,22 @@ public class WannengjiDetailActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         if (!TextUtils.isEmpty(mWannengjiDetailData.getData().getChuli())) {
             et_handle_reason.getEditText().setText(mWannengjiDetailData.getData().getChuli());
+        }
+
+        if ("不合格".equals(mDataBean.getPDJG()) || "无效".equals(mDataBean.getPDJG())) {
+            cv_handle.setVisibility(View.VISIBLE);
+            if(!TextUtils.isEmpty(mWannengjiDetailData.getData().getChuli())){
+                bt_submit.setEnabled(false);
+                bt_reset.setEnabled(false);
+            }else{
+                if (mUserInfoData.getQuanxian().isCbchuli()) {
+                    bt_submit.setEnabled(true);
+                    bt_reset.setEnabled(true);
+                }else{
+                    bt_submit.setEnabled(false);
+                    bt_reset.setEnabled(false);
+                }
+            }
         }
     }
 

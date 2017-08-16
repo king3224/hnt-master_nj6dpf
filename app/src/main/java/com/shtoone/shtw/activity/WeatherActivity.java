@@ -1,18 +1,12 @@
 package com.shtoone.shtw.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.shtoone.shtw.R;
 import com.shtoone.shtw.activity.base.BaseActivity;
-import com.shtoone.shtw.event.MyLocationListener;
-import com.shtoone.shtw.fragment.mainactivity.ConcreteFragment;
 import com.shtoone.shtw.fragment.weatheractivity.WeatherActivityWeatherFragment;
-import com.socks.library.KLog;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -60,7 +54,5 @@ public class WeatherActivity extends BaseActivity {
         super.initToolbarBackNavigation(toolbar);
         toolbar.setTitle("最近天气");
     }
-
-
 }
 

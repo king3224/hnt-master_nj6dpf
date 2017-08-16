@@ -539,15 +539,19 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
         tv_date.setText(data.getData().getShijian());//
         tv_sjysb.setText(data.getData().getSjysb() + "%");//
         tv_llysb.setText(data.getData().getLlysb() + "%");//
-        tv_wcysb.setText(data.getData().getSjysb() + "%");//
+        tv_wcysb.setText(data.getData().getWsjysb() + "%");//
         tv_lqwd.setText(data.getData().getLqwd() + "℃");//
         tv_slwd.setText(data.getData().getGlwd() + "℃");//
         tv_clwd.setText(data.getData().getClwd() + "℃");//
     }
 
     private void setData2View() {
-        String imageURL = URL.BaseURL + data.getData().getFilepath();
-        Glide.with(getApplicationContext()).load(imageURL).crossFade().into(iv_photo_select);
+        if (!TextUtils.isEmpty(data.getData().getFilepath())) {
+            String imageURL = URL.BaseURL + data.getData().getFilepath();
+            Glide.with(getApplicationContext()).load(imageURL).crossFade().into(iv_photo_select);
+        }else{
+            iv_photo_select.setImageResource(R.drawable.ic_camera_album);
+        }
         et_handle_person.getEditText().setText(data.getData().getChuzhiren());
         et_handle_time.getEditText().setText(data.getData().getChuzhishijian());
         et_handle_reason.getEditText().setText(data.getData().getChaobiaoyuanyin());
@@ -571,8 +575,6 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
         mRecyclerView.setAdapter(mScaleInAnimationAdapter);
         mRecyclerView1.setAdapter(mScaleInAnimationAdapter);
 
-
-
         //设置处置部分是否显示
         if (mUserInfoData.getQuanxian().isCbchuli()) {
             if ("1".equals(chuli)) {
@@ -583,6 +585,7 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
                 bt_handle_reset.setEnabled(true);
             }
 
+
             if (!TextUtils.isEmpty(data.getData().getFilepath())) {
 
                 String imageURL = URL.BaseURL + data.getData().getFilepath();
@@ -591,6 +594,7 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
 
             if (TextUtils.isEmpty(data.getData().getChuzhiren())) {
                 et_handle_person.getEditText().setText(handlePerson = mUserInfoData.getUserFullName());
+                KLog.e(TAG, "handlePerson=:" + handlePerson.toString());
             } else {
                 et_handle_person.getEditText().setText(data.getData().getChuzhiren());
             }
@@ -615,7 +619,6 @@ public class PitchOverproofDetailActivity extends BaseActivity implements TimePi
                 et_handle_result.getEditText().setText(data.getData().getChulijieguo());
             }
         }
-
 
     }
 
