@@ -6,11 +6,11 @@ android {
     buildToolsVersion '24.0.3'
 
     defaultConfig {
-        applicationId "com.shtoone.shtw"
+        applicationId "com.shtoone.njshtw"
         minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName "1.02"
         multiDexEnabled true
     }
     buildTypes {
@@ -29,7 +29,7 @@ android {
         signing {
             keyAlias '拌和站android版app'
             keyPassword 'tooneyanfa'
-            storeFile file('E:/otherTip/android studuio签名文件/shtoone_Android.jks') // 这里需要修改为自己主机上的目录
+            storeFile file('E:/开发资料/签名文件/shtoone_Android.jks') // 这里需要修改为自己主机上的目录
             storePassword 'tooneyanfa'
         }
     }
@@ -96,4 +96,6 @@ dependencies {
     compile files('libs/Android_Map3D_SDK_V5.0.0_20170311.jar')
     compile files('libs/AMap_Search_V5.0.0_20170309.jar')
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.7.8'
+    compile 'com.pgyersdk:sdk:3.0.2'
 }

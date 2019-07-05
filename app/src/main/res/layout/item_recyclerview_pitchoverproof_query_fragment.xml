@@ -193,7 +193,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.shtoone.shtw.ui.SlantedTextView
+    <com.shtoone.njshtw.ui.SlantedTextView
         android:id="@+id/stv_hege_and_chuzhi"
         android:layout_width="60dp"
         android:layout_height="60dp"

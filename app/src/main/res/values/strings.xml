@@ -11,11 +11,14 @@
     <string name="company">南京六的平方信息技术有限公司</string>
 
     <!--登陆模块-->
-    <string name="system_name">沥青路面施工管控一体化系统</string>
+    <!--<string name="system_name">沥青路面施工管控一体化系统</string>-->
+    <string name="system_name">路面芯控智联管控系统</string>
     <string name="input_username">请输入用户名</string>
     <string name="input_password">请输入密码</string>
     <string name="login_company">By：南京六的平方信息技术有限公司</string>
-    <string name="login_copyright">Copyright 2015-2017</string>
+    <!--<string name="login_company">By：浙江省交通集团检测科技有限公司-->
+    <!--</string>-->
+    <string name="login_copyright">Copyright 2015-2018</string>
     <string name="upload">登陆</string>
     <string name="error">用户名或密码错误</string>
 
@@ -24,6 +27,7 @@
     <string name="concrete">混凝土</string>
     <string name="banhezhan">拌合站</string>
     <string name="asphalt">沥青</string>
+    <string name="waterstablity">水稳</string>
     <string name="pavesite">摊铺现场</string>
     <string name="alarm_level">报警等级</string>
     <string name="zongpanshu">总盘数:</string>
@@ -91,6 +95,7 @@
     <string name="examine_approve">监理审批</string>
     <string name="confirm_time">确认时间</string>
     <string name="approve_time">审批时间</string>
+    <string name="examine_opinion">审批意见</string>
 
 
     <!-- ■■ 日生产量统计  ■■ -->

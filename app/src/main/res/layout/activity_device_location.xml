@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.shtoone.shtw.ui.PageStateLayout
+        <com.shtoone.njshtw.ui.PageStateLayout
             android:id="@+id/psl_concrete_main_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        </com.shtoone.shtw.ui.PageStateLayout>
+        </com.shtoone.njshtw.ui.PageStateLayout>
 
         <LinearLayout
             android:orientation="vertical"

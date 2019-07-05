@@ -130,7 +130,7 @@
 
     </RelativeLayout>
 
-    <com.shtoone.shtw.ui.SlantedTextView
+    <com.shtoone.njshtw.ui.SlantedTextView
         android:id="@+id/stv_qualified_item_recyclerview_wannengji_fragment_viewpager_fragment"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -143,7 +143,7 @@
         app:slantedTextColor="@color/white"
         app:slantedTextSize="13sp" />
 
-    <com.shtoone.shtw.ui.SlantedTextView
+    <com.shtoone.njshtw.ui.SlantedTextView
         android:id="@+id/stv_handle_item_recyclerview_wannengji_fragment_viewpager_fragment"
         android:layout_width="50dp"
         android:layout_height="50dp"

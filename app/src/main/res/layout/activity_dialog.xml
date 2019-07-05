@@ -131,6 +131,52 @@
                     android:text="已处置" />
             </RadioGroup>
 
+
+            <RadioGroup
+                android:id="@+id/rg_sw_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/rb_all_sw_dialog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="全部" />
+
+                <RadioButton
+                    android:id="@+id/rb_not_swhandle_dialog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="未处置" />
+
+                <RadioButton
+                    android:id="@+id/rb_swhandled_dialog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="已处置" />
+
+                <RadioButton
+                    android:id="@+id/rb_swnotexamine_dialog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="未审核" />
+
+                <RadioButton
+                    android:id="@+id/rb_swexamine_dialog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="已审核" />
+            </RadioGroup>
+
             <RadioGroup
                 android:id="@+id/rg_examine_dialog"
                 android:layout_width="match_parent"
