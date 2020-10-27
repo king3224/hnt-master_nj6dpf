@@ -254,13 +254,15 @@
             android:value="Wandoujia" />
 
         <provider
-            android:name="com.pgyersdk.PgyerProvider"
-            android:authorities="${applicationId}.com.pgyer.provider"
-            android:exported="false"/>
-        <meta-data
-            android:name="PGYER_APPID"
-            android:value="d025353d3a84643ea7a839065d3031f5" >
-        </meta-data>
+            tools:replace="android:authorities"
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.shtoone.njshtw.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
     </application>
 

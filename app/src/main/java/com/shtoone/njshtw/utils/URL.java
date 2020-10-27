@@ -44,10 +44,10 @@ public class URL {
     //public static final String BaseURL = "http://192.168.1.181:8081/njpfsix/";
 
     //平台地址
-    //public static final String BaseURL = "http://116.62.30.27:8082/njpfsix/";
+    public static final String BaseURL = "http://116.62.30.27:8082/njpfsix/";
 
     //测试地址
-    public static final String BaseURL = "http://192.168.1.116:8080/njpfqms/";
+    //public static final String BaseURL = "http://192.168.1.135:8080/njpfqms/";
 
     /**
      * 登录地址

@@ -2,6 +2,7 @@ package com.shtoone.njshtw.activity;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.RectF;
@@ -13,22 +14,27 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.pgyersdk.update.PgyUpdateManager;
+import com.google.gson.Gson;
 import com.shtoone.njshtw.BaseApplication;
 import com.shtoone.njshtw.R;
 import com.shtoone.njshtw.activity.base.BaseActivity;
+import com.shtoone.njshtw.bean.VersionData;
 import com.shtoone.njshtw.bean.WeatherData;
 import com.shtoone.njshtw.fragment.mainactivity.ConcreteFragment;
 import com.shtoone.njshtw.fragment.mainactivity.LaboratoryFragment;
@@ -36,7 +42,10 @@ import com.shtoone.njshtw.fragment.mainactivity.PitchFragment;
 import com.shtoone.njshtw.fragment.mainactivity.WaterStablityFragment;
 import com.shtoone.njshtw.fragment.tanpu.PaveSiteFragment;
 import com.shtoone.njshtw.utils.ConstantsUtils;
+import com.shtoone.njshtw.utils.DownloadUtils;
+import com.shtoone.njshtw.utils.HttpUtils;
 import com.shtoone.njshtw.utils.SharedPreferencesUtils;
+import com.shtoone.njshtw.utils.URL;
 import com.socks.library.KLog;
 
 import java.util.ArrayList;
@@ -67,6 +76,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     WeatherData weatherData;
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSIONS = 1;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 2;
+    private static final int REQUEST_INSTALL_PACKAGES = 3;
+    private Gson        mGson;
+    private VersionData mVersionData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +178,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
     public void initData() {
+        mGson = new Gson();
         if (null != BaseApplication.mUserInfoData) {
             if (!TextUtils.isEmpty(BaseApplication.mUserInfoData.getUserFullName())) {
                 tv_username.setText("用户：" + BaseApplication.mUserInfoData.getUserFullName());
@@ -228,63 +241,77 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 requestPermissions(
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
+                requestPermissions(
+                        new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES},
+                        REQUEST_INSTALL_PACKAGES);
             }
         }
 
-        //        new PgyUpdateManager.Builder()
-        //                .setForced(true)                //设置是否强制更新,非自定义回调更新接口此方法有用
-        //                .setUserCanRetry(false)         //失败后是否提示重新下载，非自定义下载 apk 回调此方法有用
-        //                .setDeleteHistroyApk(true)     // 检查更新前是否删除本地历史 Apk
-        //                .setUpdateManagerListener(new UpdateManagerListener() {
-        //                    @Override
-        //                    public void onNoUpdateAvailable() {
-        //                        //没有更新是回调此方法
-        //                        Log.d("pgyer", "there is no new version");
-        //                    }
-        //
-        //                    @Override
-        //                    public void onUpdateAvailable(AppBean appBean) {
-        //                        //没有更新是回调此方法
-        //                        Log.d("pgyer", "there is new version can update"
-        //                                + "new versionCode is " + appBean.getVersionCode());
-        //
-        //                        //调用以下方法，DownloadFileListener 才有效；如果完全使用自己的下载方法，不需要设置DownloadFileListener
-        //                        PgyUpdateManager.downLoadApk(appBean.getDownloadURL());
-        //                    }
-        //
-        //                    @Override
-        //                    public void checkUpdateFailed(Exception e) {
-        //                        //更新检测失败回调
-        //                        Log.e("pgyer", "check update failed ", e);
-        //
-        //                    }
-        //                })
-        //                //注意 ：下载方法调用 PgyUpdateManager.downLoadApk(appBean.getDownloadURL()); 此回调才有效
-        //                .setDownloadFileListener(new DownloadFileListener() {   // 使用蒲公英提供的下载方法，这个接口才有效。
-        //                    @Override
-        //                    public void downloadFailed() {
-        //                        //下载失败
-        //                        Log.e("pgyer", "download apk failed");
-        //                    }
-        //
-        //                    @Override
-        //                    public void downloadSuccessful(Uri uri) {
-        //                        Log.e("pgyer", "download apk failed");
-        //                        PgyUpdateManager.installApk(uri);  // 使用蒲公英提供的安装方法提示用户 安装apk
-        //
-        //                    }
-        //
-        //                    @Override
-        //                    public void onProgressUpdate(Integer... integers) {
-        //                        Log.e("pgyer", "update download apk progress : " + integers[0]);
-        //                    }
-        //                })
-        //                .register();
-        new PgyUpdateManager.Builder()
-                .setForced(true)                //设置是否强制提示更新
-                .setUserCanRetry(false)         //失败后是否提示重新下载
-                .setDeleteHistroyApk(true)     // 检查更新前是否删除本地历史 Apk， 默认为true
-                .register();
+        HttpUtils.getRequest(URL.BaseURL + "appVersion/app-version.json", new HttpUtils.HttpListener() {
+            @Override
+            public void onSuccess(String response) {
+
+                mVersionData = mGson.fromJson(response,VersionData.class);
+                try {
+
+
+                    final int versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+                    if (Integer.parseInt(mVersionData.getAppversion())>versionCode){
+                        setMyPop();
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailed(VolleyError error) {
+
+            }
+        });
+    }
+
+    private void setMyPop() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //        builder.setIcon(R.drawable.wanneng);
+        //        builder.setTitle("结束生产");
+
+        // 判断 生产申请判断料仓是否合格，关闭申请判断料仓是否还有使用
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_verify_jianli_jieshushenchan_new, null);
+        builder.setView(view);
+        final Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+        final Button btn_ok = (Button) view.findViewById(R.id.btn_ok);
+        final ImageView iv_cancell = (ImageView) view.findViewById(R.id.iv_cancell);
+
+        final AlertDialog ad = builder.create();
+        ad.setCancelable(true);
+        ad.setCanceledOnTouchOutside(false);
+        ad.show();
+
+        iv_cancell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+            }
+        });
+
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DownloadUtils(getApplication(), URL.BaseURL+"appVersion/app-nj6pf.apk","app-nj6pf.apk");
+
+                ad.dismiss();
+            }
+        });
     }
 
     @Override
@@ -412,6 +439,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 }
             }
+            break;
             case REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSIONS: {
                 for (int i = 0; i < permissions.length; i++) {
                     if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
@@ -419,6 +447,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                     } else {
                         Toast.makeText(this, "未允许读存储！", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+            break;
+
+            case REQUEST_INSTALL_PACKAGES: {
+                for (int i = 0; i < permissions.length; i++) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, "允许安装包！", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(this, "未允许安装包！", Toast.LENGTH_SHORT).show();
                     }
 
                 }

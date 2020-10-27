@@ -720,7 +720,6 @@ public class WaterStablityOverproofDetailActivity extends BaseActivity implement
 
         }
 
-
         //设置处置部分是否显示
         if (mUserInfoData.getQuanxian().isCbchuli()) {
             if ("1".equals(chuli)) {

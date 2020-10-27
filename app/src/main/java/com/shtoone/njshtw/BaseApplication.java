@@ -7,7 +7,6 @@ import android.support.multidex.MultiDex;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.github.moduth.blockcanary.BlockCanary;
-import com.pgyersdk.crash.PgyCrashManager;
 import com.shtoone.njshtw.bean.DepartmentData;
 import com.shtoone.njshtw.bean.ParametersData;
 import com.shtoone.njshtw.bean.UserInfoData;
@@ -43,7 +42,7 @@ public class BaseApplication extends Application {
         //创建LeakCanary对象，观察内存泄漏
       //  mRefWatcher = LeakCanary.install(this);
         BlockCanary.install(this, new AppContext()).start();//创建BlockCanary对象，观察耗时操作
-        PgyCrashManager.register();
+        //PgyCrashManager.register();
 
     }
 

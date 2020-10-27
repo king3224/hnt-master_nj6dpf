@@ -175,7 +175,7 @@ public class PitchProduceQueryDetailActivity extends BaseActivity {
         tv_date.setText(data.getData().getShijian());//
         tv_sjysb.setText(data.getData().getSjysb()+"%");//
         tv_llysb.setText(data.getData().getLlysb()+"%");//
-        tv_wcysb.setText(data.getData().getSjysb()+"%");//
+        tv_wcysb.setText(data.getData().getWsjysb()+"%");//
         tv_lqwd.setText(data.getData().getLqwd()+"℃");//
         tv_slwd.setText(data.getData().getGlwd()+"℃");//
         tv_clwd.setText(data.getData().getClwd()+"℃");//
